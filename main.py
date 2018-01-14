@@ -4,18 +4,22 @@ __author__ = 'Alex Owens'
 
 import pygame
 import Level, Editor
+import setup
 
 
 def main():
+    level_width, level_height = setup.setup_level_size()
+    level_name = setup.setup_level_name()
+
     pygame.init()
-    editor_screen = pygame.display.set_mode((800, 600))
+    editor_screen = pygame.display.set_mode((1024, 800), pygame.RESIZABLE)
     pygame.display.set_caption('Grid Level Editor')
 
     background = pygame.Surface(editor_screen.get_size())
     background = background.convert()
     background.fill((255, 255, 255))
 
-    level = Level.Level(width=16, height=8)
+    level = Level.Level(width=level_width, height=level_height)
     level_editor = Editor.Editor(level)
     level_editor.set_draw_pos(background.get_width() / 2 - level_editor.editor_surface.get_width() / 2, background.get_height() / 2 - level_editor.editor_surface.get_height() / 2)
 
@@ -24,7 +28,16 @@ def main():
 
     while True:
         for event in pygame.event.get():
-            level_editor.handle_event(event)
+            if event.type == pygame.VIDEORESIZE:
+                # TODO: Refactor into function
+                editor_screen = pygame.display.set_mode(event.dict['size'], pygame.RESIZABLE)
+                background = pygame.Surface(editor_screen.get_size())
+                background = background.convert()
+                background.fill((255, 255, 255))
+                level_editor.set_draw_pos(background.get_width() / 2 - level_editor.editor_surface.get_width() / 2,
+                                          background.get_height() / 2 - level_editor.editor_surface.get_height() / 2)
+            else:
+                level_editor.handle_event(event)
 
         level_editor.render()
 

@@ -17,7 +17,7 @@ class Level:
         self.level_structure = self.init_level_structure()
 
     def init_level_structure(self):
-        return [[Block(x=x, y=y) for x in range(0, self.width_in_blocks - 1)] for y in range(0, self.height_in_blocks - 1)]
+        return [[Block(x=x, y=y) for x in range(0, self.width_in_blocks)] for y in range(0, self.height_in_blocks)]
 
     def render_level(self, surface):
         for row in self.level_structure:
@@ -44,6 +44,24 @@ class Level:
                     return True
         return False
 
+    def export_as_txt_file(self, name):
+        integer_level = self.get_integer_level_representation()
+        with open('{}'.format(name), 'w') as file:
+            for row in integer_level:
+                for col in row:
+                    file.write(col + ' ')
+                file.write('\n')
+
+    def get_integer_level_representation(self):
+        txt_level = [[]]
+        for x, row in enumerate(self.level_structure):
+            for y, block in enumerate(row):
+                txt_level[x][y] = 1 if block.filled else 0
+        return txt_level
+
+
+
+
 
 
 class Block:
@@ -60,7 +78,7 @@ class Block:
         self.filled = False
 
     def render_block(self, surface):
-        draw_color = (0, 0, 0) if self.filled == False else (255, 255, 255)
+        draw_color = (255, 0, 0) if self.filled else (0, 0, 0)
         pygame.draw.rect(surface, draw_color, self.rect)
 
     def contains_point(self, x, y):
