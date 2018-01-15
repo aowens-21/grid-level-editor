@@ -2,10 +2,10 @@
 This grid based level editor is a very simple level editor that consists of a 2D array of Block objects. This is saved to a file and represented as a 2D array of 1s and 0s. 
 
 ## Important Controls
-Left-Click: Add a block (means there is something in that grid space)
-Right-Click: Remove a block (means the grid space is empty)
-Resize: You can resize the window at any point, but not the level
-Exit: Upon exit it saves the file as an .txt file full of 1s or 0s
+Left-Click: Add a block (means there is something in that grid space)  
+Right-Click: Remove a block (means the grid space is empty)  
+Resize: You can resize the window at any point, but not the level  
+Exit: Upon exit it saves the file as an .txt file full of 1s or 0s  
 
 ## Small Tutorial
 When you first run the program, a prompt will appear in the console window asking for the level's width, this will be in
