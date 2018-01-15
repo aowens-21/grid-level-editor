@@ -3,12 +3,13 @@ __author__ = 'Alex Owens'
 import pygame
 
 
-""" The Level class is a structure that holds a 2D array of Block objects (defined below),
-    levels will hold functionality to manipulate individual blocks in the array, as well as
-    rendering all the blocks at a time. Levels are also exportable to an integer array which
-    will be written to a text file.
-"""
 class Level:
+    """ The Level class is a structure that holds a 2D array of Block objects (defined below),
+        levels will hold functionality to manipulate individual blocks in the array, as well as
+        rendering all the blocks at a time. Levels are also exportable to an integer array which
+        will be written to a text file.
+    """
+
     def __init__(self, width=32, height=32):
         self.width_in_blocks = width
         self.height_in_blocks = height
@@ -63,11 +64,12 @@ BLOCK_SIDE_LENGTH = 16
 SPACE_BETWEEN_BLOCKS = 2
 
 
-""" The Block class is a very primitive structure that represents one grid space in a level.
-    The purpose of having a structure to hold each block is that it simplifies rendering, manipulation, and
-    it can be extended pretty easily.
-"""
 class Block:
+    """ The Block class is a very primitive structure that represents one grid space in a level.
+        The purpose of having a structure to hold each block is that it simplifies rendering, manipulation, and
+        it can be extended pretty easily.
+    """
+
     def __init__(self, x=0, y=0):
         self.position = (x * BLOCK_SIDE_LENGTH, y * BLOCK_SIDE_LENGTH)
         self.side_length = BLOCK_SIDE_LENGTH
@@ -89,4 +91,3 @@ class Block:
     def contains_point(self, x, y):
         return True if x >= self.rect.x and x < self.rect.x + self.rect.width and \
                        y >= self.rect.y and y < self.rect.y + self.rect.height else False
-

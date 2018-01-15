@@ -9,14 +9,16 @@ MOUSE_LEFT = 1
 MOUSE_RIGHT = 3
 
 
-""" Editor class will do most of the event handling for level manipulation,
-    and it will also provide a separate surface on which to render the level.
-"""
 class Editor:
+    """ Editor class will do most of the event handling for level manipulation,
+        and it will also provide a separate surface on which to render the level.
+    """
+
     def __init__(self, edited_level, draw_pos=(0, 0)):
         self.edited_level = edited_level
         self.draw_pos = draw_pos
         self.editor_surface = self.init_editor_surface()
+        self.running = True
 
     # Takes in an event from the main loop and processes it
     def handle_event(self, event):
@@ -42,6 +44,9 @@ class Editor:
 
     def save_level(self, name):
         self.edited_level.export_as_txt_file(name)
+
+    def close(self):
+        self.running = False
 
     # Draw position is simply where the editor surface is drawn in the main surface
     def set_draw_pos(self, x, y):
