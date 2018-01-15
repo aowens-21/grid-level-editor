@@ -3,18 +3,17 @@ __author__ = 'Alex Owens'
 # The editor will essentially be where all level manipulation occurs,
 # it handles addition of new walls and deleting of walls and things like that.
 
-import pygame, sys
+import pygame
+
+GRID_SIZE = 16
 
 class Editor:
-    def __init__(self, edited_level, draw_pos=(0, 0), grid_size=16):
+    def __init__(self, edited_level, draw_pos=(0, 0)):
         self.edited_level = edited_level
-        self.GRID_SIZE = grid_size
         self.draw_pos = draw_pos
         self.editor_surface = self.init_editor_surface()
 
     def handle_event(self, event):
-        if event.type == pygame.QUIT:
-            sys.exit()
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = event.pos
             if event.button == 1:
@@ -24,8 +23,8 @@ class Editor:
                 self.edited_level.empty_block((mouse_pos[0] - self.draw_pos[0], mouse_pos[1] - self.draw_pos[1]))
 
     def init_editor_surface(self):
-        surface_width = self.edited_level.width_in_blocks * self.GRID_SIZE + 1
-        surface_height = self.edited_level.height_in_blocks * self.GRID_SIZE + 1
+        surface_width = self.edited_level.width_in_blocks * GRID_SIZE + 1
+        surface_height = self.edited_level.height_in_blocks * GRID_SIZE + 1
         surface = pygame.Surface((surface_width, surface_height))
         surface = surface.convert()
         surface.fill((255, 255, 255))
@@ -33,6 +32,9 @@ class Editor:
 
     def render(self):
         self.edited_level.render_level(self.editor_surface)
+
+    def save_level(self, name):
+        self.edited_level.export_as_txt_file(name)
 
     def set_draw_pos(self, x, y):
         self.draw_pos = (x, y)

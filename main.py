@@ -5,7 +5,7 @@ __author__ = 'Alex Owens'
 import pygame
 import Level, Editor
 import setup
-
+import sys
 
 def main():
     level_width, level_height = setup.setup_level_size()
@@ -36,6 +36,9 @@ def main():
                 background.fill((255, 255, 255))
                 level_editor.set_draw_pos(background.get_width() / 2 - level_editor.editor_surface.get_width() / 2,
                                           background.get_height() / 2 - level_editor.editor_surface.get_height() / 2)
+            elif event.type == pygame.QUIT:
+                level_editor.save_level(level_name)
+                sys.exit()
             else:
                 level_editor.handle_event(event)
 
@@ -45,6 +48,5 @@ def main():
 
         editor_screen.blit(background, (0, 0))
         pygame.display.flip()
-
 
 main()
