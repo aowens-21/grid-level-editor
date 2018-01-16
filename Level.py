@@ -17,7 +17,7 @@ class Level:
 
     # Creates a 2D array of blocks using list comprehension
     def init_level_structure(self):
-        return [[Block(x=x, y=y) for x in range(0, self.width_in_blocks)] for y in range(0, self.height_in_blocks)]
+        return [[Block(x=x, y=y) for x in range(self.width_in_blocks)] for y in range(self.height_in_blocks)]
 
     # Renders each block in the level_structure
     def render_level(self, surface):
